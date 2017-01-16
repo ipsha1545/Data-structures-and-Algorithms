@@ -17,7 +17,7 @@ public int maxSpan(int[] nums) {
 				  if(nums[i] == nums[j]){
 					  span = j-i+1;
 					  l.add(span);
-	          break;
+	                                  break;
 					 
 				  }
 				  
