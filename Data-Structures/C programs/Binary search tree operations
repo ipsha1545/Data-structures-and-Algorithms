@@ -1,66 +1,163 @@
-// Binary Search Tree - Implemenation in C++
-// Simple program to create a BST of integers and search an element in it 
-#include<iostream>
-using namespace std;
-//Definition of Node for Binary search tree
-struct BstNode {
-	int data; 
-	BstNode* left;
-	BstNode* right;
+//Binary search tree
+
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct node{
+    int data;
+    struct node* left;
+    struct node* right;
 };
 
-// Function to create a new Node in heap
-BstNode* GetNewNode(int data) {
-	BstNode* newNode = new BstNode();
-	newNode->data = data;
-	newNode->left = newNode->right = NULL;
-	return newNode;
+//insert a value
+/*node* insert(struct node* root, int data){
+    struct node* newnode = (struct node*)malloc(sizeof(struct node));
+    newnode->data = data;
+    
+    if(!newnode){
+        printf("Memory error");
+        return;
+    }
+    
+    if(data < root->data){
+        insert(root->left,data);
+    }
+    
+    else if(data > root->data){
+        insert(root->right,data);
+    
+    }
+    
+    else printf("Sorry!.. no duplicates allowed as binary tree is an ordered set");
+    
+}*/
+
+void insert(struct node ** tree, int val)
+{
+    struct node *temp = NULL;
+    if(!(*tree))
+    {
+        temp = (struct node *)malloc(sizeof(struct node));
+        temp->left = temp->right = NULL;
+        temp->data = val;
+        *tree = temp;
+        return;
+    }
+
+    if(val < (*tree)->data)
+    {
+        insert(&(*tree)->left, val);
+    }
+    else if(val > (*tree)->data)
+    {
+        insert(&(*tree)->right, val);
+    }
+
 }
 
-// To insert data in BST, returns address of root node 
-BstNode* Insert(BstNode* root,int data) {
-	if(root == NULL) { // empty tree
-		root = GetNewNode(data);
-	}
-	// if data to be inserted is lesser, insert in left subtree. 
-	else if(data <= root->data) {
-		root->left = Insert(root->left,data);
-	}
-	// else, insert in right subtree. 
-	else {
-		root->right = Insert(root->right,data);
-	}
-	return root;
+void inorder(struct node* root){
+    if(root){
+    printf("%d ",root->data);
+    inorder(root->left);
+    inorder(root->right);
+    }
 }
-//To search an element in BST, returns true if element is found
-bool Search(BstNode* root,int data) {
-	if(root == NULL) {
-		return false;
-	}
-	else if(root->data == data) {
-		return true;
-	}
-	else if(data <= root->data) {
-		return Search(root->left,data);
-	}
-	else {
-		return Search(root->right,data);
-	}
+
+
+//level order traversal
+int heightmine(struct node* root){
+    if(root == NULL) return 0;
+    
+    if(height(root->left)>height(root->right))
+    {
+     printf("%d",height(root->left + 1));
+     return height(root->left + 1);
+    }
+    else printf("%d",height(root->right + 1));
+    return height(root->right + 1);
+    
 }
-int main() {
-	BstNode* root = NULL;  // Creating an empty tree
-	/*Code to test the logic*/
-	root = Insert(root,15);	
-	root = Insert(root,10);	
-	root = Insert(root,20);
-	root = Insert(root,25);
-	root = Insert(root,8);
-	root = Insert(root,12);
-	// Ask user to enter a number.  
-	int number;
-	cout<<"Enter number be searched\n";
-	cin>>number;
-	//If number is found, print "FOUND"
-	if(Search(root,number) == true) cout<<"Found\n";
-	else cout<<"Not Found\n";
+
+//print given level i.e prints nodes at a given level
+void printlevel(struct node* root,int level){
+  if(root == NULL){
+      return;
+  }
+   if(level == 1){
+      printf("%d ",root->data);
+  }
+  else if(level>1){
+      printlevel(root->left,level -1);
+      printlevel(root->right,level -1);
+  }
 }
+
+//level order traversl
+void levelordertraversal(struct node* root){
+    int i;
+    int h = height(root);
+    for(i = 1; i <=h;i++){
+        printlevel(root,i);
+    }
+}
+
+/* Function to line by line print level order traversal a tree*/
+void printLevelOrder(struct node* root)
+{
+    int h = height(root);
+    int i;
+    for (i=1; i<=h; i++)
+    {
+        printGivenLevel(root, i);
+        printf("\n");
+    }
+}
+ 
+/* Print nodes at a given level */
+void printGivenLevel(struct node* root, int level)
+{
+    if (root == NULL)
+        return;
+    if (level == 1)
+        printf("%d ", root->data);
+    else if (level > 1)
+    {
+        printGivenLevel(root->left, level-1);
+        printGivenLevel(root->right, level-1);
+    }
+}
+
+int height(struct node* node)
+{
+    if (node==NULL)
+        return 0;
+    else
+    {
+        /* compute the height of each subtree */
+        int lheight = height(node->left);
+        int rheight = height(node->right);
+ 
+        /* use the larger one */
+        if (lheight > rheight)
+            return(lheight+1);
+        else return(rheight+1);
+    }
+}
+
+int main(){
+    struct node* root = NULL;
+    insert(&root,23);
+    insert(&root,19);
+    insert(&root,8);
+    
+   // inorder(root);
+   // struct node *p = root;
+    //inorder(p);
+   //printGivenLevel(root,3);
+   //printf("%d",height(root));
+   printLevelOrder(root);
+}
+
+
+
