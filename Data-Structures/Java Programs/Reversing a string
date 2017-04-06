@@ -1,0 +1,28 @@
+import java.util.Stack;
+
+public class reversestring {
+	
+	private String reversestring(String s){
+		Stack st = new Stack();
+		for(char a : s.toCharArray()){
+			st.push(a);
+		}
+		
+		String rev = null;
+		while(!st.isEmpty()){
+			if(rev == null) rev = "";
+			else rev = rev + st.pop();
+			
+		}
+		return rev;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+     String s = "Comehome";
+     reversestring sn = new reversestring();
+     System.out.println(sn.reversestring(s));
+     
+	}
+
+}
