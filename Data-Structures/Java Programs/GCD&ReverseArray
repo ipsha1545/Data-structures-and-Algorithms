@@ -1,0 +1,82 @@
+public class FindString {
+
+ public static void main(String[] args) {
+  String str1 = "Come here today";
+  String str2 = "abcd";
+  int[] arr = {4, 34, 2, 56, 72, 89};
+  reverserArray(arr, 0, arr.length - 1);
+  for(int num : arr){
+   System.out.print(num+" "); 
+  }
+  System.out.println(); 
+     int index = findString(str1, str2);
+     System.out.println(index); 
+     System.out.println(findGCD(12, 15));
+ }
+ 
+ public static int findString(String str1, String str2){
+     int  found=-1;
+     boolean isFound = false;
+  for(int i=0; i < str1.length(); i++){
+   if(str1.charAt(i) == str2.charAt(0)){
+    int j=i+1;
+    int k=1;
+    while(k < str2.length()){
+     if(str1.charAt(j) == str2.charAt(k)){
+       j++;
+       k++;
+       isFound = true;
+     }else{
+      isFound = false;
+      break;
+     }
+    }
+    if(isFound){
+     found = i;
+    }
+   }
+  }
+  
+  return found;
+ }
+ 
+ 
+ public static void reverserArray(int a[],int initial,int last){ 
+
+  if(initial < last)
+  reverserArray(a,initial+1,last-1); 
+  swap(a,initial,last);
+
+    }
+ 
+ public static void swap(int[] a, int i,int j){
+      int temp = a[i];
+      a[i] = a[j];
+      a[j] = temp;        
+ }
+ 
+ public static int findGCD(int n1, int n2){
+  int s = 0;
+  int gcd = 0;
+  if(n1 > n2){
+   s = n2;
+   if(n2%n1==0){
+    gcd = n1; 
+   }
+  }else if(n2 > n1){
+   s = n1;
+   if(n1%n2==0){
+    gcd = n2; 
+   }
+  }
+  
+  for(int i=2; i <= s/2; i++){
+   
+   if(n1%i == 0 && n2%i == 0){
+    gcd = i;
+   }
+  }
+  
+  return gcd;
+ }
+}
