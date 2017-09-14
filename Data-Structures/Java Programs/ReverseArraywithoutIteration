@@ -1,0 +1,7 @@
+reverserArray(int a[],int initial,int last){ 
+
+if(initial < last) 
+reverserArray(a,initial+1,last-1); 
+swap(a,inital,last); 
+
+}

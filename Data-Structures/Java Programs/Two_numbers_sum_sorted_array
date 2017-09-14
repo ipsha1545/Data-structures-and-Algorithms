@@ -1,0 +1,51 @@
+package sumoftwoelements;
+public class sumoftwo {
+public static boolean decide(int[] abc)
+
+{
+boolean doesexists = false;
+
+ for(int i = 0;i< abc.length;i++){
+
+  for(int j  = i+1;j<abc.length;j++){
+
+    if(ispresent(abc,abc[i] + abc[j]))
+          {
+           doesexists = true;
+          }
+       }
+   }
+
+   return doesexists;
+}
+
+public static boolean ispresent(int[] abc,int sum){
+
+ boolean  doesexists = false;
+
+  for(int i = 0;i< abc.length;i++){
+
+  if(abc[i] == sum){
+
+  doesexists =  true;
+
+   }
+
+  }
+
+  return doesexists;
+
+}
+public static void main(String[] args)
+
+{
+
+int[] marr = {1, 7, 10, 21, 22, 39, 47, 54};
+
+int[] marr1 = {1, 7, 10,17};
+
+System.out.println(decide(marr));
+  }
+
+}
+
