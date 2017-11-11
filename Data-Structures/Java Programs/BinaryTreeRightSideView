@@ -1,0 +1,20 @@
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> res = new List<Integer>();
+        rightview(root,res,0);
+    }
+    
+    public List<Integer> rightview(TreeNode root, List<Integer> result, int curdepth){
+        if(root == null){
+            return new ArrayList<Integer>();
+        }
+        
+        if(result.size != curdepth){
+            result.add(root);
+        }
+        
+        rightview(root.right,result,curdepth + 1);
+        rightview(root.left,result,curdepth + 1);
+        
+    }
+}
