@@ -1,0 +1,53 @@
+ public static int[] findMode(TreeNode root){
+		List<Integer> mylist = new ArrayList<Integer>();
+		Map<Integer,Integer> mymap = new HashMap<>();
+		
+		inorder(root,mymap);
+		
+		for(int k:mymap.keySet()){
+			if(mymap.get(k) == max){
+				mylist.add(k);
+			}
+		}
+		
+		int l = mylist.size();
+		int[] arr = new int[l];
+		
+		for(int i = 0;i<l;i++){
+			arr[i] = mylist.get(i);
+		}
+		
+		return arr;
+		
+}
+	
+	public static void inorder(TreeNode root,Map<Integer,Integer> mymap){
+		if(root == null) return ;
+
+		
+		if(mymap.containsKey(root.val)){
+			int l = mymap.get(root.val);
+			mymap.put(root.val,l+1);		
+		}
+		
+		else{
+			mymap.put(root.val, 1);
+		}
+		
+		System.out.println(mymap);
+		
+		max = Math.max(max, mymap.get(root.val));
+		
+		System.out.println(max);
+		
+		
+		if(root.left != null){
+			inorder(root.left,mymap);
+		}
+		
+		if(root.right != null){
+		inorder(root.right,mymap);
+		}
+	}
+	
+      
